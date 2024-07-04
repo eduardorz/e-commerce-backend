@@ -21,4 +21,12 @@ export class UsersService {
     addUserService(user: Omit<User, 'id'>): Promise<User> {
         return this.usersRepository.addUserRepository(user);
     }
+
+    updateUserService(id: number, user: User) {
+        return this.usersRepository.updateUserRepository(id, user); 
+    }
+
+    deleteUserService(id: number) {
+        return this.usersRepository.deleteUserRepository(id);
+    }
 }

@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post, Query, Req, UseGuards, UseInterceptors } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Put, Query, Req, UseGuards, UseInterceptors } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { User } from './user.interface';
 import { AuthGuard } from 'src/guards/auth.guard';
@@ -33,5 +33,15 @@ export class UsersController {
     createUser(@Body() user: User, @Req() request: Request & { now: string }){
         console.log('dentro del endpoint: ', request.now)
         return this.usersService.addUserService(user);
+    }
+
+    @Put(':id')
+    updateUser(@Param('id') id: number, @Body() user: User){
+        return this.usersService.updateUserService(id, user);
+    }
+
+    @Delete(':id')
+    deleteUserController(@Param('id') id: number) {
+        return this.usersService.deleteUserService(id);
     }
 }

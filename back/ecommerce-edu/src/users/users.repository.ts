@@ -6,7 +6,7 @@ export class UsersRepository {
     // simulando la base de datos
     private users: User[] = [
         {
-            "id": 11,
+            "id": 1,
             "email": "johndoe@example.com",
             "name": "John Doe",
             "password": "password1",
@@ -16,7 +16,7 @@ export class UsersRepository {
             "city": "New York"
           },
           {
-            "id": 12,
+            "id": 2,
             "email": "janedoe@example.com",
             "name": "Jane Doe",
             "password": "password2",
@@ -26,7 +26,7 @@ export class UsersRepository {
             "city": "Toronto"
           },
           {
-            "id": 13,
+            "id": 3,
             "email": "alicetaylor@example.com",
             "name": "Alice Taylor",
             "password": "password3",
@@ -55,9 +55,21 @@ export class UsersRepository {
       return { id, ... user};
     }
 
-    async updateUserRepository(){}
+    async updateUserRepository(id: number, user: User){
+      const foundIndex = this.users.findIndex(user => Number(user.id) === Number(id));
+      if(foundIndex === -1) {
+        return  `No se encontro el usuario con el id ${id}`;
+      } 
+      this.users[foundIndex] = {...this.users[foundIndex], ...user};
+      return this.users[foundIndex]; //* para consultar el usuario actualizado
+    }
 
-    async deleteUserRepository(){}
+    async deleteUserRepository(id: number){
+      const foundIndex = this.users.findIndex(user => Number(user.id) === Number(id));
+      if(foundIndex === -1) return  `No se encontro el usuario con el id ${id}`;
+      this.users.splice(foundIndex, 1);
+      return `El usuario con el id ${id} ha sido eliminado`;
+    }
 
     getUserByEmail(){}
 
