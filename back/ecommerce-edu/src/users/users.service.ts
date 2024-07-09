@@ -7,8 +7,8 @@ export class UsersService {
     
     constructor(private readonly usersRepository: UsersRepository){}
 
-    getUsersService(){
-        return this.usersRepository.getUsersRepository()
+    getUsersService(page: number, limit: number){
+        return this.usersRepository.getUsersRepository(page, limit);
     }
 
     getUserByNameService(name: string) {

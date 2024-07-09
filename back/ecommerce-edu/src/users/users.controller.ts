@@ -11,9 +11,13 @@ export class UsersController {
     constructor(private readonly usersService: UsersService){}
 
     @Get()
-    getUsers(@Query('name') name?: string){
-        if (name) return this.usersService.getUserByNameService(name);
-        return this.usersService.getUsersService();
+    getUsers(@Query('name') name?: string, @Query('page') page?: string, @Query('limit') limit?: string){
+        if (name && !(page || limit)){
+            return this.usersService.getUserByNameService(name);
+        } else if (!(name) && (page && limit)) {
+            return this.usersService.getUsersService(Number(page), Number(limit));
+        }
+        return this.usersService.getUsersService(1, 5);
     }
 
     @Get('profile/images')
