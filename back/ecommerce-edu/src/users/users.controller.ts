@@ -26,14 +26,11 @@ export class UsersController {
         return 'Este endpoint retorna las imagenes del usuario'
     }
 
-    /* 
     @Get(':email')
     getUserByEmail(@Param('email') email: string){
         return this.usersService.getUserByEmailService(email);
     }
-    */
     
-
     // siempre que tenga un ':' debe ir a lo ultimo, en este caso, de los get
     @Get(':id')
     getUserById(@Param('id') id: number){
