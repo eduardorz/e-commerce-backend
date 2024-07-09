@@ -4,6 +4,7 @@ import { User } from './user.interface';
 
 @Injectable()
 export class UsersService {
+    
     constructor(private readonly usersRepository: UsersRepository){}
 
     getUsersService(){
@@ -12,6 +13,10 @@ export class UsersService {
 
     getUserByNameService(name: string) {
         return this.usersRepository.getUserByNameRepository(name);
+    }
+
+    getUserByEmailService(email: string) {
+        return this.usersRepository.getUserByEmailRepository(email);
     }
 
     getUserByIdService(id: number) {

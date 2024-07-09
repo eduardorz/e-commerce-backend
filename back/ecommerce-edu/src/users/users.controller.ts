@@ -22,15 +22,23 @@ export class UsersController {
         return 'Este endpoint retorna las imagenes del usuario'
     }
 
+    /* 
+    @Get(':email')
+    getUserByEmail(@Param('email') email: string){
+        return this.usersService.getUserByEmailService(email);
+    }
+    */
+    
+
     // siempre que tenga un ':' debe ir a lo ultimo, en este caso, de los get
     @Get(':id')
-    getUserById(@Param('id') id: string){
-        return this.usersService.getUserByIdService(Number(id)) // OJO CON EL TIPO DE DATO DEL ID EN BD
+    getUserById(@Param('id') id: number){
+        return this.usersService.getUserByIdService(id) // OJO CON EL TIPO DE DATO DEL ID EN BD
     }
 
     @Post()
     @UseInterceptors(DateAdderInterceptor)
-    createUser(@Body() user: User, @Req() request: Request & { now: string }){
+    addUser(@Body() user: User, @Req() request: Request & { now: string }){
         console.log('dentro del endpoint: ', request.now)
         return this.usersService.addUserService(user);
     }

@@ -46,7 +46,14 @@ export class UsersRepository {
     }
 
     async getUserByIdRepository(id: number){
-      return this.users.find((user) => user.id === id);
+      const user = this.users.find((user) => Number(user.id) === Number(id));
+      if(!user) return  `No se encontro el usuario con el id ${id}`;
+      const {password, ...userNoPassword} = user;
+      return userNoPassword;
+    }
+
+    async getUserByEmailRepository(email: string){
+      return this.users.find((user) => user.email === email);
     }
 
     async addUserRepository(user: Omit<User, 'id'>){
@@ -70,7 +77,5 @@ export class UsersRepository {
       this.users.splice(foundIndex, 1);
       return `El usuario con el id ${id} ha sido eliminado`;
     }
-
-    getUserByEmail(){}
 
 }
