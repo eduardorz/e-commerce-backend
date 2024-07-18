@@ -3,6 +3,7 @@ import { UsersService } from './users.service';
 import { User } from './user.interface';
 import { AuthGuard } from 'src/guards/auth.guard';
 import { DateAdderInterceptor } from 'src/interceptors/date-adder.interceptor';
+import { Users } from 'src/entities/users.entity';
 
 @Controller('users')
 // EN CASO DE QUERER APLICAR LA GUARDA PARA TODOS LOS ENDPOINTS DE ESTE CONTROLADOR, DEBE IR A ESTA ALTURA
@@ -13,7 +14,7 @@ export class UsersController {
     @Get()
     getUsers(@Query('name') name?: string, @Query('page') page?: string, @Query('limit') limit?: string){
         if (name && !(page || limit)){
-            return this.usersService.getUserByNameService(name);
+            // return this.usersService.getUserByNameService(name);
         } else if (!(name) && (page && limit)) {
             return this.usersService.getUsersService(Number(page), Number(limit));
         }
@@ -33,24 +34,25 @@ export class UsersController {
     
     // siempre que tenga un ':' debe ir a lo ultimo, en este caso, de los get
     @Get(':id')
-    getUserById(@Param('id') id: number){
+    getUserById(@Param('id') id: string){
         return this.usersService.getUserByIdService(id) // OJO CON EL TIPO DE DATO DEL ID EN BD
     }
 
     @Post()
     @UseInterceptors(DateAdderInterceptor)
-    addUser(@Body() user: User, @Req() request: Request & { now: string }){
+    addUser(@Body() user: any, @Req() request: Request & { now: string }){
         console.log('dentro del endpoint: ', request.now)
+        // VALIDACION DTO
         return this.usersService.addUserService(user);
     }
 
     @Put(':id')
-    updateUser(@Param('id') id: number, @Body() user: User){
+    updateUser(@Param('id') id: string, @Body() user: Users){
         return this.usersService.updateUserService(id, user);
     }
 
     @Delete(':id')
-    deleteUserController(@Param('id') id: number) {
+    deleteUserController(@Param('id') id: string) {
         return this.usersService.deleteUserService(id);
     }
 }

@@ -9,8 +9,8 @@ import {
     PrimaryGeneratedColumn
 } from "typeorm";
 
-import { Categories } from "./categories.entity";
 import { OrderDetails } from "./orderdetails.entity";
+import { Categories } from "./categories.entity";
 
 @Entity({
     name: 'PRODUCTS',
@@ -51,7 +51,7 @@ export class Products {
         type: 'text',
         // default: 'https://via.placeholder.com/150', url de la imagen*
     })
-    imageUrl: string;
+    imgUrl: string;
 
 
     //! Products (N:1) Categories

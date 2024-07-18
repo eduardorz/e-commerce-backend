@@ -11,8 +11,8 @@ import {
     PrimaryGeneratedColumn
 } from "typeorm";
 
-import { Products } from "./products.entity";
 import { Orders } from "./orders.entity";
+import { Products } from "./products.entity";
 
 @Entity({
     name: 'ORDERDETAILS',
@@ -25,6 +25,7 @@ export class OrderDetails {
         type: 'decimal',
         precision: 10,
         scale: 2,
+        nullable: false,
     })
     price: number;
 

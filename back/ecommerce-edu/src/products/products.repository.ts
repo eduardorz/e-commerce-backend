@@ -1,80 +1,85 @@
 import { Injectable } from "@nestjs/common";
 import { Product } from "./product.interface";
+import { InjectRepository } from "@nestjs/typeorm";
+import { Products } from "src/entities/products.entity";
+import { Categories } from "src/entities/categories.entity";
+import * as data from '../utils/data.json';
+import { Repository } from "typeorm";
 
 @Injectable()
 export class ProductsRepository {
-    private products: Product[] = [
-        {
-            id: 1,
-            name: "Producto 1",
-            description: "Descripción del producto 1",
-            price: 10.99,
-            stock: true,
-            imageUrl: "https://example.com/product1.jpg"
-        },
-        {
-            id: 2,
-            name: "Producto 2",
-            description: "Descripción del producto 2",
-            price: 19.99,
-            stock: false,
-            imageUrl: "https://example.com/product2.jpg"
-        },
-        {
-            id: 3,
-            name: "Producto 3",
-            description: "Descripción del producto 3",
-            price: 29.99,
-            stock: true,
-            imageUrl: "https://example.com/product3.jpg"
-        },
-        {
-            id: 4,
-            name: "Producto 4",
-            description: "Descripción del producto 4",
-            price: 9.99,
-            stock: true,
-            imageUrl: "https://example.com/product4.jpg"
-        },
-        {
-            id: 5,
-            name: "Producto 5",
-            description: "Descripción del producto 5",
-            price: 14.99,
-            stock: false,
-            imageUrl: "https://example.com/product5.jpg"
-        }
-    ];
+    constructor(
+        @InjectRepository(Products)
+        private productsRepository: Repository<Products>,
+        @InjectRepository(Categories)
+        private categoriesRepository: Repository<Categories>,
+    ) {}
 
-    async getProductsRepository() {
-        return this.products;
+    async getProductsRepository(page: number, limit: number): Promise<Products[]> {
+        let products = await this.productsRepository.find({
+            relations: {
+                category: true,
+            },
+        });
+        const start = (page - 1) * limit;
+        const end = start + limit;
+        products = products.slice(start, end);
+
+        return products;
     }
 
-    async getProductByIdRepository(id: number) {
-        const product = this.products.find((product) => Number(product.id) === Number(id));
+    async getProductByIdRepository(id: string) {
+        const product = await this.productsRepository.findOneBy({ id });
         if(!product) return  `No se encontro el producto con el id ${id}`;
         return product;
     }
 
-    async addProductRepository(product: Omit<Product, 'id'>) {
-        const id = this.products.length + 1;
-        this.products = [ ... this.products, { id, ... product}];
-        return { id, ... product};
+    // QUEDA VALIDAR QUE YA EXISTAN LAS CATEGORIAS ANTES DE AGREGAR PRODUCTOS
+
+    async addProductRepository() {
+        const categories = await this.categoriesRepository.find();
+        data?.map(async (element) => {
+
+            const category = categories.find(
+                (category) => category.name === element.category,
+            );
+
+            const product = new Products();
+            product.name = element.name;
+            product.description = element.description;
+            product.price = element.price;
+            product.imgUrl = element.imgUrl;
+            product.stock = element.stock;
+            product.category = category;
+
+            await this.productsRepository
+                .createQueryBuilder()
+                .insert()
+                .into(Products)
+                .values(product)
+                // si el producto ya existe, se actualiza
+                .orUpdate(['description', 'price', 'imgUrl', 'stock'], ['name'])
+                .execute();
+        });
+        return 'Productos agregados';
     }
 
-    async updateProductRepository(id: number, product: Product) {
-        const foundIndex = this.products.findIndex(product => Number(product.id) === Number(id));
-        if(foundIndex === -1) {
-            return  `No se encontro el producto con el id ${id}`;
-        } 
-        this.products[foundIndex] = {...this.products[foundIndex], ...product};
-        return this.products[foundIndex]; 
+    async updateProductRepository(id: string, product: Products) {
+        await this.productsRepository.update(id, product);
+        const updatedProduct = await this.productsRepository.findOneBy({
+            id,
+        });
+        return updatedProduct;
     }
 
+    /*
     async deleteProductRepository(id: number) {
         const foundIndex = this.products.findIndex(product => Number(product.id) === Number(id));
         if(foundIndex === -1) return  `No se encontro el producto con el id ${id}`;
         this.products.splice(foundIndex, 1);
         return `El producto con el id ${id} ha sido eliminado`;
     }
+
+    */
+    
 }
