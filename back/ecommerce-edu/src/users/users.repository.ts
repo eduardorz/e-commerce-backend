@@ -16,6 +16,7 @@ export class UsersRepository {
         take: limit,
         skip: start, // chequear nombre
       });
+      // esto se podría hacer con un interceptor o un middleware
       return users.map(({password, ...userNoPassword}) => userNoPassword);
     }
     

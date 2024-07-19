@@ -1,0 +1,272 @@
+[
+    {
+        "name": "Liam Smith",
+        "email": "liamsmith@example.com",
+        "password": "password16",
+        "address": "123 Queen St",
+        "phone": 1234567910,
+        "country": "Australia",
+        "city": "Sydney"
+    },
+    {
+        "name": "Olivia Johnson",
+        "email": "oliviajohnson@example.com",
+        "password": "password17",
+        "address": "456 King St",
+        "phone": 1234567911,
+        "country": "Australia",
+        "city": "Melbourne"
+    },
+    {
+        "name": "Noah Williams",
+        "email": "noahwilliams@example.com",
+        "password": "password18",
+        "address": "789 Princes Hwy",
+        "phone": 1234567912,
+        "country": "Australia",
+        "city": "Brisbane"
+    },
+    {
+        "name": "Emma Brown",
+        "email": "emmabrown@example.com",
+        "password": "password19",
+        "address": "123 Victoria St",
+        "phone": 1234567913,
+        "country": "Australia",
+        "city": "Perth"
+    },
+    {
+        "name": "Lucas Martinez",
+        "email": "lucasmartinez@example.com",
+        "password": "password20",
+        "address": "456 Gran Via",
+        "phone": 1234567914,
+        "country": "Spain",
+        "city": "Madrid"
+    },
+    {
+        "name": "Sofia Garcia",
+        "email": "sofiagarcia@example.com",
+        "password": "password21",
+        "address": "789 Calle Mayor",
+        "phone": 1234567915,
+        "country": "Spain",
+        "city": "Barcelona"
+    },
+    {
+        "name": "Mateo Hernandez",
+        "email": "mateohernandez@example.com",
+        "password": "password22",
+        "address": "123 Calle de Alcalá",
+        "phone": 1234567916,
+        "country": "Spain",
+        "city": "Seville"
+    },
+    {
+        "name": "Isabella Lopez",
+        "email": "isabellalopez@example.com",
+        "password": "password23",
+        "address": "456 Avenida Diagonal",
+        "phone": 1234567917,
+        "country": "Spain",
+        "city": "Valencia"
+    },
+    {
+        "name": "Leo Dubois",
+        "email": "leodubois@example.com",
+        "password": "password24",
+        "address": "123 Rue de Rivoli",
+        "phone": 1234567918,
+        "country": "France",
+        "city": "Paris"
+    },
+    {
+        "name": "Mia Rousseau",
+        "email": "miarousseau@example.com",
+        "password": "password25",
+        "address": "456 Rue Saint-Honoré",
+        "phone": 1234567919,
+        "country": "France",
+        "city": "Lyon"
+    },
+    {
+        "name": "Benjamin Lefevre",
+        "email": "benjaminlefevre@example.com",
+        "password": "password26",
+        "address": "789 Rue de la République",
+        "phone": 1234567920,
+        "country": "France",
+        "city": "Marseille"
+    },
+    {
+        "name": "Amelia Moreau",
+        "email": "ameliamoreau@example.com",
+        "password": "password27",
+        "address": "123 Avenue des Champs-Élysées",
+        "phone": 1234567921,
+        "country": "France",
+        "city": "Toulouse"
+    },
+    {
+        "name": "Ethan Clark",
+        "email": "ethanclark@example.com",
+        "password": "password28",
+        "address": "123 Sunset Blvd",
+        "phone": 1234567922,
+        "country": "USA",
+        "city": "Los Angeles"
+    },
+    {
+        "name": "Ava Davis",
+        "email": "avadavis@example.com",
+        "password": "password29",
+        "address": "456 Hollywood Blvd",
+        "phone": 1234567923,
+        "country": "USA",
+        "city": "Los Angeles"
+    },
+    {
+        "name": "James Martinez",
+        "email": "jamesmartinez@example.com",
+        "password": "password30",
+        "address": "789 Market St",
+        "phone": 1234567924,
+        "country": "USA",
+        "city": "San Francisco"
+    },
+    {
+        "name": "Juan Pérez",
+        "email": "juanperez@example.com",
+        "password": "password31",
+        "address": "123 Carrera 7",
+        "phone": 1234567925,
+        "country": "Colombia",
+        "city": "Bogotá"
+    },
+    {
+        "name": "María García",
+        "email": "mariagarcia@example.com",
+        "password": "password32",
+        "address": "456 Avenida 68",
+        "phone": 1234567926,
+        "country": "Colombia",
+        "city": "Medellín"
+    },
+    {
+        "name": "Carlos López",
+        "email": "carloslopez@example.com",
+        "password": "password33",
+        "address": "789 Calle 50",
+        "phone": 1234567927,
+        "country": "Colombia",
+        "city": "Cali"
+    },
+    {
+        "name": "Ana Rodríguez",
+        "email": "anarodriguez@example.com",
+        "password": "password34",
+        "address": "123 Avenida Santander",
+        "phone": 1234567928,
+        "country": "Colombia",
+        "city": "Barranquilla"
+    },
+    {
+        "name": "Diego Fernández",
+        "email": "diegofernandez@example.com",
+        "password": "password35",
+        "address": "456 Avenida Providencia",
+        "phone": 1234567929,
+        "country": "Chile",
+        "city": "Santiago"
+    },
+    {
+        "name": "Camila González",
+        "email": "camilagonzalez@example.com",
+        "password": "password36",
+        "address": "789 Calle Huérfanos",
+        "phone": 1234567930,
+        "country": "Chile",
+        "city": "Valparaíso"
+    },
+    {
+        "name": "Lucas Silva",
+        "email": "lucassilva@example.com",
+        "password": "password37",
+        "address": "123 Calle Moneda",
+        "phone": 1234567931,
+        "country": "Chile",
+        "city": "Concepción"
+    },
+    {
+        "name": "Isabella Torres",
+        "email": "isabellatorres@example.com",
+        "password": "password38",
+        "address": "456 Avenida Alemania",
+        "phone": 1234567932,
+        "country": "Chile",
+        "city": "La Serena"
+    },
+    {
+        "name": "Martín Rodríguez",
+        "email": "martinrodriguez@example.com",
+        "password": "password39",
+        "address": "789 Avenida Córdoba",
+        "phone": 1234567933,
+        "country": "Argentina",
+        "city": "Buenos Aires"
+    },
+    {
+        "name": "Sofía Martínez",
+        "email": "sofiamartinez@example.com",
+        "password": "password40",
+        "address": "123 Calle Florida",
+        "phone": 1234567934,
+        "country": "Argentina",
+        "city": "Córdoba"
+    },
+    {
+        "name": "Mateo Gómez",
+        "email": "mateogomez@example.com",
+        "password": "password41",
+        "address": "456 Avenida Rivadavia",
+        "phone": 1234567935,
+        "country": "Argentina",
+        "city": "Rosario"
+    },
+    {
+        "name": "Emilia Torres",
+        "email": "emiliatorres@example.com",
+        "password": "password42",
+        "address": "789 Avenida Colón",
+        "phone": 1234567936,
+        "country": "Argentina",
+        "city": "Mendoza"
+    },
+    {
+        "name": "Alejandro Pérez",
+        "email": "alejandroperez@example.com",
+        "password": "password43",
+        "address": "123 Avenida Libertador",
+        "phone": 1234567937,
+        "country": "Venezuela",
+        "city": "Caracas"
+    },
+    {
+        "name": "Valentina García",
+        "email": "valentinagarcia@example.com",
+        "password": "password44",
+        "address": "456 Avenida Bolívar",
+        "phone": 1234567938,
+        "country": "Venezuela",
+        "city": "Maracaibo"
+    },
+    {
+        "name": "Gabriel Hernández",
+        "email": "gabrielhernandez@example.com",
+        "password": "password45",
+        "address": "789 Avenida Urdaneta",
+        "phone": 1234567939,
+        "country": "Venezuela",
+        "city": "Valencia"
+    }
+]
