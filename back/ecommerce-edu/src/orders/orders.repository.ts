@@ -1,4 +1,4 @@
-import { Injectable } from "@nestjs/common";
+import { Injectable, NotFoundException } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { OrderDetails } from "src/entities/orderdetails.entity";
 import { Orders } from "src/entities/orders.entity";
@@ -23,7 +23,7 @@ export class OrdersRepository {
         let total = 0;
 
         const user = await this.usersRepository.findOneBy({ id: userId });
-        if (!user) return `Usuario con el id ${userId} no encontrado`
+        if (!user) throw new NotFoundException(`Usuario con el id ${userId} no encontrado`);
 
         const order = new Orders();
         order.date = new Date();

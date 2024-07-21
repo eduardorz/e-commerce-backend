@@ -4,6 +4,7 @@ import { User } from './user.interface';
 import { AuthGuard } from 'src/guards/auth.guard';
 import { DateAdderInterceptor } from 'src/interceptors/date-adder.interceptor';
 import { Users } from 'src/entities/users.entity';
+import { CreateUserDto, UpdateUserDto } from './users.dto';
 
 @Controller('users')
 // EN CASO DE QUERER APLICAR LA GUARDA PARA TODOS LOS ENDPOINTS DE ESTE CONTROLADOR, DEBE IR A ESTA ALTURA
@@ -40,14 +41,15 @@ export class UsersController {
 
     @Post()
     @UseInterceptors(DateAdderInterceptor)
-    addUser(@Body() user: any, @Req() request: Request & { now: string }){
+    addUser(@Body() user: CreateUserDto, @Req() request: Request & { now: string }){
         console.log('dentro del endpoint: ', request.now)
         // VALIDACION DTO
         return this.usersService.addUserService(user);
     }
 
     @Put(':id')
-    updateUser(@Param('id') id: string, @Body() user: Users){
+    updateUser(@Param('id') id: string, @Body() user: UpdateUserDto){
+        // VALIDAR QUE EL DTO RECIBA ALMENOS 1 DATO PARA MODIFICAR
         return this.usersService.updateUserService(id, user);
     }
 

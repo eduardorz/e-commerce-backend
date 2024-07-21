@@ -20,11 +20,11 @@ export class UsersService {
         return this.usersRepository.getUserByIdRepository(id);
     }
 
-    addUserService(user: Users) {
+    addUserService(user: Partial<Users>) {
         return this.usersRepository.addUserRepository(user);
     }
 
-    updateUserService(id: string, user: Users) {
+    updateUserService(id: string, user: Partial<Users>) {
         return this.usersRepository.updateUserRepository(id, user); 
     }
 
