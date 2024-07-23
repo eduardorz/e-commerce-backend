@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Post, Put, Query, Req, UseGuards, UseInterceptors } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, ParseUUIDPipe, Post, Put, Query, Req, UseGuards, UseInterceptors } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { User } from './user.interface';
 import { AuthGuard } from 'src/guards/auth.guard';
@@ -35,7 +35,7 @@ export class UsersController {
     
     // siempre que tenga un ':' debe ir a lo ultimo, en este caso, de los get
     @Get(':id')
-    getUserById(@Param('id') id: string){
+    getUserById(@Param('id', ParseUUIDPipe) id: string){
         return this.usersService.getUserByIdService(id) // OJO CON EL TIPO DE DATO DEL ID EN BD
     }
 
@@ -48,13 +48,13 @@ export class UsersController {
     }
 
     @Put(':id')
-    updateUser(@Param('id') id: string, @Body() user: UpdateUserDto){
+    updateUser(@Param('id', ParseUUIDPipe) id: string, @Body() user: UpdateUserDto){
         // VALIDAR QUE EL DTO RECIBA ALMENOS 1 DATO PARA MODIFICAR
         return this.usersService.updateUserService(id, user);
     }
 
     @Delete(':id')
-    deleteUserController(@Param('id') id: string) {
+    deleteUserController(@Param('id', ParseUUIDPipe) id: string) {
         return this.usersService.deleteUserService(id);
     }
 }

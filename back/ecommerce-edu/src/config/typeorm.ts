@@ -15,9 +15,9 @@ const config = {
     entities: ['dist/**/*.entity{.ts,.js}'],
     migrations: ['dist/migrations/*{.js,.ts}'],
     autoLoadEntities: true,
-    logging: true,
-    synchronize: true,
-    dropSchema: true
+    logging: false, // codigo sql
+    synchronize: false,
+    dropSchema: false,
 };
 
 export default registerAs('typeorm', () => config);
