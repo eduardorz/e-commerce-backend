@@ -39,6 +39,7 @@ export class UsersController {
         return this.usersService.getUserByIdService(id) // OJO CON EL TIPO DE DATO DEL ID EN BD
     }
 
+    /*
     @Post()
     @UseInterceptors(DateAdderInterceptor)
     addUser(@Body() user: CreateUserDto, @Req() request: Request & { now: string }){
@@ -46,6 +47,8 @@ export class UsersController {
         // VALIDACION DTO
         return this.usersService.addUserService(user);
     }
+    */
+
 
     @Put(':id')
     updateUser(@Param('id', ParseUUIDPipe) id: string, @Body() user: UpdateUserDto){
