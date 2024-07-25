@@ -7,19 +7,14 @@ import { Users } from 'src/entities/users.entity';
 import { CreateUserDto, UpdateUserDto } from './users.dto';
 
 @Controller('users')
-// EN CASO DE QUERER APLICAR LA GUARDA PARA TODOS LOS ENDPOINTS DE ESTE CONTROLADOR, DEBE IR A ESTA ALTURA
-// @UseGuards(AuthGuard)
 export class UsersController {
     constructor(private readonly usersService: UsersService){}
 
     @Get()
-    getUsers(@Query('name') name?: string, @Query('page') page?: string, @Query('limit') limit?: string){
-        if (name && !(page || limit)){
-            // return this.usersService.getUserByNameService(name);
-        } else if (!(name) && (page && limit)) {
-            return this.usersService.getUsersService(Number(page), Number(limit));
-        }
-        return this.usersService.getUsersService(1, 5);
+    @UseGuards(AuthGuard)
+    getUsers(@Query('page') page?: string, @Query('limit') limit?: string){
+        if (!page || !limit) return this.usersService.getUsersService(1, 5);
+        return this.usersService.getUsersService(Number(page), Number(limit));
     }
 
     @Get('profile/images')
@@ -33,22 +28,10 @@ export class UsersController {
         return this.usersService.getUserByEmailService(email);
     }
     
-    // siempre que tenga un ':' debe ir a lo ultimo, en este caso, de los get
     @Get(':id')
     getUserById(@Param('id', ParseUUIDPipe) id: string){
-        return this.usersService.getUserByIdService(id) // OJO CON EL TIPO DE DATO DEL ID EN BD
+        return this.usersService.getUserByIdService(id)
     }
-
-    /*
-    @Post()
-    @UseInterceptors(DateAdderInterceptor)
-    addUser(@Body() user: CreateUserDto, @Req() request: Request & { now: string }){
-        console.log('dentro del endpoint: ', request.now)
-        // VALIDACION DTO
-        return this.usersService.addUserService(user);
-    }
-    */
-
 
     @Put(':id')
     updateUser(@Param('id', ParseUUIDPipe) id: string, @Body() user: UpdateUserDto){
