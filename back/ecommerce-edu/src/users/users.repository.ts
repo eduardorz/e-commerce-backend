@@ -14,20 +14,11 @@ export class UsersRepository {
       const start = (page - 1) * limit;
       const users = await this.usersRepository.find({
         take: limit,
-        skip: start, // chequear nombre
+        skip: start, 
       });
-      // esto se podría hacer con un interceptor o un middleware
-      return users.map(({password, ...userNoPassword}) => userNoPassword);
+      return users.map(({password, isAdmin, ...userNoPassword}) => userNoPassword);
     }
     
-    /*
-    async getUserByNameRepository(name: string) {
-      return this.users.find((user) => user.name === name);
-    }
-    */
-
-    
-
     async getUserByIdRepository(id: string){
       const user = await this.usersRepository.findOne({
         where: { id },
@@ -35,7 +26,6 @@ export class UsersRepository {
           orders: true,
         },
       });
-      // if(!user) return  `No se encontro el usuario con el id ${id}`;
       if(!user) throw new NotFoundException(`No se encontro el usuario con el id ${id}`);
       const {password, ...userNoPassword} = user;
       return userNoPassword;

@@ -22,7 +22,7 @@ export class AuthService {
         const validPassword = await bcrypt.compare(password, user.password);
         if(!validPassword) throw new BadRequestException('Credenciales Incorrectas');
         
-        const payload = { id: user.id, email: user.email }
+        const payload = { id: user.id, email: user.email, isAdmin: user.isAdmin }
         const token = this.jwtService.sign(payload);
         return {
             message: 'Usuario logueado',
