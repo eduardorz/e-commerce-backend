@@ -10,6 +10,7 @@ async function bootstrap() {
     .setTitle('Proyecto Integrador M4-Back Eduardo Ruiz')
     .setDescription('Aplicacion Back-End creada con NestJS, TypeScript, TypeORM y PostgreSQL')
     .setVersion('1.0.0')
+    .addBearerAuth()
     .build();
   const document = SwaggerModule.createDocument(app, options);
   SwaggerModule.setup('api', app, document);

@@ -1,8 +1,13 @@
-import { PickType } from "@nestjs/swagger";
+import { ApiHideProperty, PickType } from "@nestjs/swagger";
 import { IsEmail, IsEmpty, IsNotEmpty, IsNumber, IsOptional, IsString, IsStrongPassword, MaxLength, MinLength, Validate } from "class-validator";
 import { MatchPassword } from "src/decorators/matchPassword.decorator";
 
 export class CreateUserDto {
+
+    /**
+     * Debe ser un string de entre 3 y 80 caracteres
+     * @example 'Juliana Daniela Rincon'
+     */
     @IsNotEmpty()
     @IsString()
     @MinLength(3)
@@ -51,6 +56,7 @@ export class CreateUserDto {
     @MaxLength(20)
     city: string;
 
+    @ApiHideProperty()
     @IsEmpty()
     isAdmin?: boolean;
 }

@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, ParseUUIDPipe, Post, Put, Query, Req, UseGuards, UseInterceptors } from '@nestjs/common';
+import { BadRequestException, Body, Controller, Delete, Get, Param, ParseUUIDPipe, Post, Put, Query, Req, UseGuards, UseInterceptors } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { User } from './user.interface';
 import { AuthGuard } from 'src/guards/auth.guard';
@@ -8,7 +8,9 @@ import { CreateUserDto, UpdateUserDto } from './users.dto';
 import { Roles } from 'src/decorators/roles.decorator';
 import { Role } from './roles.enum';
 import { RolesGuard } from 'src/guards/roles.guard';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('users')
 @Controller('users')
 export class UsersController {
     constructor(private readonly usersService: UsersService){}
@@ -27,17 +29,20 @@ export class UsersController {
     }
     
     @Get(':id')
+    @UseGuards(AuthGuard)
     getUserById(@Param('id', ParseUUIDPipe) id: string){
         return this.usersService.getUserByIdService(id)
     }
 
     @Put(':id')
+    @UseGuards(AuthGuard)
     updateUser(@Param('id', ParseUUIDPipe) id: string, @Body() user: UpdateUserDto){
-        // VALIDAR QUE EL DTO RECIBA ALMENOS 1 DATO PARA MODIFICAR
+        if (Object.keys(user).length === 0) throw new BadRequestException('Tiene que haber almenos 1 dato para modificar');
         return this.usersService.updateUserService(id, user);
     }
 
     @Delete(':id')
+    @UseGuards(AuthGuard)
     deleteUserController(@Param('id', ParseUUIDPipe) id: string) {
         return this.usersService.deleteUserService(id);
     }

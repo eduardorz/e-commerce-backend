@@ -3,7 +3,9 @@ import { ProductsService } from './products.service';
 import { Product } from './product.interface';
 import { DateAdderInterceptor } from 'src/interceptors/date-adder.interceptor';
 import { Products } from 'src/entities/products.entity';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('products')
 @Controller('products')
 export class ProductsController {
     constructor(private readonly productsService: ProductsService){}
