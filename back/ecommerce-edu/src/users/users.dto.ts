@@ -24,7 +24,7 @@ export class CreateUserDto {
     /**
      * Debe ser un string de entre 8 y 15 caracteres
      * Debe tener almenos una mayúscula, una minúscula, un número y un carácter especial
-     * @example 'ABC123#$*'
+     * @example 'Abc123#$*'
      */
     @IsNotEmpty()
     @IsString()
@@ -107,7 +107,7 @@ export class UpdateUserDto {
     /**
      * Debe ser un string de entre 8 y 15 caracteres
      * Debe tener almenos una mayúscula, una minúscula, un número y un carácter especial
-     * @example 'ABC123#$*'
+     * @example 'Abc123#$*'
      */
     @IsOptional()
     @IsString()
@@ -120,6 +120,10 @@ export class UpdateUserDto {
         minSymbols: 1,
     })
     password: string;
+
+    @IsNotEmpty()
+    @Validate(MatchPassword, ['password'])
+    confirmPassword: string;
 
     /**
      * Debe ser un string de entre 3 y 80 caracteres

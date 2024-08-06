@@ -1,4 +1,4 @@
-import { Controller, FileTypeValidator, MaxFileSizeValidator, Param, ParseFilePipe, Post, UploadedFile, UseInterceptors } from '@nestjs/common';
+import { Controller, FileTypeValidator, MaxFileSizeValidator, Param, ParseFilePipe, ParseUUIDPipe, Post, UploadedFile, UseInterceptors } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { FileUploadService } from './file-upload.service';
 
@@ -9,7 +9,7 @@ export class FileUploadController {
     @Post('uploadImage/:id')
     @UseInterceptors(FileInterceptor('file'))
     async uploadImage(
-        @Param('id') productId: string,
+        @Param('id', ParseUUIDPipe) productId: string,
         @UploadedFile(
             new ParseFilePipe({
                 validators: [
