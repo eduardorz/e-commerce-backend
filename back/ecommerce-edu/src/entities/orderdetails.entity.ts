@@ -29,13 +29,10 @@ export class OrderDetails {
     })
     price: number;
 
-
-    //! OrderDetails (1:1) Orders
     @OneToOne(() => Orders, (order) => order.orderDetails)
     @JoinColumn({ name: 'order_id' })
     order: Orders;
 
-    //! OrderDetails (N:N) Products
     @ManyToMany(() => Products)
     @JoinTable({
         name: 'ORDERDETAILS_PRODUCTS',
@@ -49,15 +46,4 @@ export class OrderDetails {
         },
     })
     products: Products[];
-
-
-    /* 
-    @BeforeInsert()
-    generateUuid() {
-        if (!this.id) {
-            this.id = uuidv4();
-        }
-    }
-    
-    */
 }

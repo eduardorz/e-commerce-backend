@@ -5,7 +5,6 @@ import { Observable } from "rxjs";
 export class DateAdderInterceptor implements NestInterceptor {
     intercept(context: ExecutionContext, next: CallHandler<any>): Observable<any> | Promise<Observable<any>> {
         const now = new Date();
-        console.log(now);
         const format = now.toLocaleDateString('es-AR', {
             year: 'numeric',
             month: '2-digit',

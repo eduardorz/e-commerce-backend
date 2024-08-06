@@ -4,7 +4,6 @@ import { DataSource, DataSourceOptions } from 'typeorm';
 
 dotenvConfig({ path: '.development.env'});
 
-
 const config = {
     type: 'postgres',
     database: process.env.DB_NAME,
@@ -15,7 +14,7 @@ const config = {
     entities: ['dist/**/*.entity{.ts,.js}'],
     migrations: ['dist/migrations/*{.js,.ts}'],
     autoLoadEntities: true,
-    logging: false, // codigo sql
+    logging: false, 
     synchronize: true,
     dropSchema: true,
 };

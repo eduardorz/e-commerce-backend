@@ -25,20 +25,7 @@ export class Categories {
     })
     name: string;
 
-    //! Categories (1:N) Products
-
     @OneToMany(() => Products, (product) => product.category)
     @JoinColumn()
     products: Products[];
-    
-
-    /* 
-    @BeforeInsert()
-    generateUuid() {
-        if (!this.id) {
-            this.id = uuidv4();
-        }
-    }
-    
-    */
 }

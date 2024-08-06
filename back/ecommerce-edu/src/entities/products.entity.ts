@@ -49,29 +49,14 @@ export class Products {
 
     @Column({
         type: 'text',
-        // default: 'https://via.placeholder.com/150', url de la imagen*
+        default: 'https://via.placeholder.com/150',
     })
     imgUrl: string;
 
+    @ManyToOne(() => Categories, (category) => category.products)
+    @JoinColumn({name: 'category_id'})
+    category: Categories;
 
-    //! Products (N:1) Categories
-     @ManyToOne(() => Categories, (category) => category.products)
-     @JoinColumn({name: 'category_id'})
-     category: Categories;
-
-
-    //! Products (N:N) OrderDetails
     @ManyToMany(() => OrderDetails, (orderDetails) => orderDetails.products)
     orderDetails: OrderDetails[]
-
-
-    /* 
-    @BeforeInsert()
-    generateUuid() {
-        if (!this.id) {
-            this.id = uuidv4();
-        }
-    }
-    
-    */
 }

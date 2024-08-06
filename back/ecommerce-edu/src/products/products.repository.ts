@@ -58,7 +58,7 @@ export class ProductsRepository {
                 .orUpdate(['description', 'price', 'imgUrl', 'stock'], ['name'])
                 .execute();
         });
-        return 'Productos agregados';
+        return { message: 'Productos agregados' };
     }
 
     async updateProductRepository(id: string, product: Products) {

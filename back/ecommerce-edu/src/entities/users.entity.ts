@@ -1,5 +1,3 @@
-// entidades de usuarios
-
 import { 
     BeforeInsert,
     Column, 
@@ -10,7 +8,6 @@ import {
     PrimaryGeneratedColumn
  } from "typeorm";
 import { Orders } from "./orders.entity";
-
 
 
 @Entity({
@@ -69,20 +66,7 @@ export class Users {
     })
     isAdmin: boolean;
 
-
-    //! Users (1:N) Orders
     @OneToMany(() => Orders, (order) => order.user)
     @JoinColumn({ name: 'user_id' })
     orders: Orders[];
-
-    /*
-    @BeforeInsert()
-    generateUuid() {
-        if (!this.id) {
-            this.id = uuidv4();
-        }
-    }
-    
-    */
-
 }
