@@ -38,6 +38,11 @@ export class CreateUserDto {
     })
     password: string;
 
+    /**
+     * Debe ser un string de entre 8 y 15 caracteres
+     * Debe tener almenos una mayúscula, una minúscula, un número y un carácter especial
+     * @example 'Abc123#$*'
+     */
     @IsNotEmpty()
     @Validate(MatchPassword, ['password'])
     confirmPassword: string;
@@ -121,7 +126,7 @@ export class UpdateUserDto {
     })
     password: string;
 
-    @IsNotEmpty()
+    @IsOptional()
     @Validate(MatchPassword, ['password'])
     confirmPassword: string;
 

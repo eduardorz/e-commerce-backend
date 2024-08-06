@@ -8,7 +8,7 @@ import { CreateUserDto, UpdateUserDto } from './users.dto';
 import { Roles } from 'src/decorators/roles.decorator';
 import { Role } from './roles.enum';
 import { RolesGuard } from 'src/guards/roles.guard';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 
 @ApiTags('users')
 @Controller('users')
@@ -16,6 +16,7 @@ export class UsersController {
     constructor(private readonly usersService: UsersService){}
 
     @Get()
+    @ApiBearerAuth()
     @Roles(Role.Admin)
     @UseGuards(AuthGuard, RolesGuard)
     getUsers(@Query('page') page?: string, @Query('limit') limit?: string){
@@ -24,17 +25,21 @@ export class UsersController {
     }
 
     @Get(':email')
+    @ApiBearerAuth()
+    @UseGuards(AuthGuard)
     getUserByEmail(@Param('email') email: string){
         return this.usersService.getUserByEmailService(email);
     }
     
     @Get(':id')
+    @ApiBearerAuth()
     @UseGuards(AuthGuard)
     getUserById(@Param('id', ParseUUIDPipe) id: string){
         return this.usersService.getUserByIdService(id)
     }
 
     @Put(':id')
+    @ApiBearerAuth()
     @UseGuards(AuthGuard)
     updateUser(@Param('id', ParseUUIDPipe) id: string, @Body() user: UpdateUserDto){
         if (Object.keys(user).length === 0) throw new BadRequestException('Tiene que haber almenos 1 dato para modificar');
@@ -42,6 +47,7 @@ export class UsersController {
     }
 
     @Delete(':id')
+    @ApiBearerAuth()
     @UseGuards(AuthGuard)
     deleteUserController(@Param('id', ParseUUIDPipe) id: string) {
         return this.usersService.deleteUserService(id);
