@@ -1,9 +1,8 @@
-import { Body, Controller, Delete, Get, Param, Post, Put, Query, Req, UseInterceptors } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Put, Query, Req, UseGuards, UseInterceptors } from '@nestjs/common';
 import { ProductsService } from './products.service';
-import { Product } from './product.interface';
-import { DateAdderInterceptor } from 'src/interceptors/date-adder.interceptor';
 import { Products } from 'src/entities/products.entity';
 import { ApiTags } from '@nestjs/swagger';
+import { AuthGuard } from 'src/guards/auth.guard';
 
 @ApiTags('products')
 @Controller('products')
@@ -26,15 +25,14 @@ export class ProductsController {
     }
 
     @Put(':id')
+    @UseGuards(AuthGuard)
     updateProduct(@Param('id') id: string, @Body() product: Products){
         return this.productsService.updateProductService(id, product);
     }
     
-
-    /*
     @Delete(':id')
-    deleteProduct(@Param('id') id: number) {
+    @UseGuards(AuthGuard)
+    deleteProduct(@Param('id') id: string) {
         return this.productsService.deleteProductService(id);
     }
-    */
 }

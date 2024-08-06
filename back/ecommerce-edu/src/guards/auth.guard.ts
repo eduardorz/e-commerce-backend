@@ -4,11 +4,6 @@ import { Request } from "express";
 import { Observable } from "rxjs";
 import { Role } from "src/users/roles.enum";
 
-function validateRequest(request: Request) {
-    const token = request.headers['token'];
-    return token === '1234';
-}
-
 @Injectable()
 export class AuthGuard implements CanActivate {
     constructor(private readonly jwtService: JwtService) {}
@@ -16,7 +11,6 @@ export class AuthGuard implements CanActivate {
         const request = context.switchToHttp().getRequest();
         const token = request.headers.authorization?.split(' ')[1];
         if (!token) throw new UnauthorizedException('No se ha enviado Token');
-        // valido el token
         try {
             const secret = process.env.JWT_SECRET;
             const user = this.jwtService.verify(token, { secret })

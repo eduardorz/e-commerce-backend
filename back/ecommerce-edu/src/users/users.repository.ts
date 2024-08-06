@@ -39,7 +39,6 @@ export class UsersRepository {
       const newUser = await this.usersRepository.save(user);
       const dbUser = await this.usersRepository.findOneBy({ id: newUser.id });
       const { password, ...userNoPassword } = dbUser;
-      console.log(userNoPassword);
       return userNoPassword;
     }
 

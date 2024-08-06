@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from "@nestjs/common";
+import { BadRequestException, Injectable, NotFoundException } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { OrderDetails } from "src/entities/orderdetails.entity";
 import { Orders } from "src/entities/orders.entity";
@@ -31,29 +31,24 @@ export class OrdersRepository {
 
         const newOrder = await this.ordersRepository.save(order);
 
-        // asociamos cada id recibido con el producto
         const productsArray = await Promise.all(
             products.map(async (element) => {
                 const product = await this.productsRepository.findOneBy({
                     id: element.id,
                 });
-                if (!product) return `Producto con el id ${element.id} no encontrado`;
-
-                // monto total
+                if (!product) throw new NotFoundException(`Producto con el id ${element.id} no encontrado`);
+                if (product.stock <= 0) throw new BadRequestException(`Producto con el id ${element.id} no tiene stock suficiente`);
                 total += Number(product.price);
 
-                // actualizacion stock
-                // FALTA VALIDAR QUE EL STOCK NO SEA CERO
                 await this.productsRepository.update(
-                    { id: element.id},
-                    { stock: product.stock - 1},
+                    { id: element.id },
+                    { stock: product.stock - 1 },
                 );
 
                 return product;
             }),
         );
 
-        // creacion del orderDetail, ingreso en bd
         const orderDetail = new OrderDetails();
 
         orderDetail.price = Number(Number(total).toFixed(2));
@@ -61,7 +56,6 @@ export class OrdersRepository {
         orderDetail.order = newOrder;
         await this.orderDetailsRepository.save(orderDetail);
 
-        // presentamos al cliente el detalle de la compra
         return await this.ordersRepository.find({
             where: { id: newOrder.id },
             relations: {
@@ -80,7 +74,7 @@ export class OrdersRepository {
             },
         });
 
-        if(!order) return `Orden con el id ${id} no encontrada`;
+        if(!order) throw new NotFoundException(`Orden con el id ${id} no encontrada`);
         return order;
     }
 

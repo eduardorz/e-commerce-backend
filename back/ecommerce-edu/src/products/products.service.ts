@@ -23,10 +23,7 @@ export class ProductsService {
         return this.productsRepository.updateProductRepository(id, product);
     }
 
-    
-    /*
-    deleteProductService(id: number) {
+    deleteProductService(id: string) {
         return this.productsRepository.deleteProductRepository(id);
     }
-    */
 }

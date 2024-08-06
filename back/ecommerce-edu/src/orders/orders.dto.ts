@@ -4,10 +4,17 @@ import { ArrayMinSize, IsArray, IsNotEmpty, IsUUID, ValidateNested } from "class
 import { Products } from "src/entities/products.entity";
 
 export class CreateOrderDto {
+    /**
+     * Debe ser un uuid
+     */
     @IsNotEmpty()
     @IsUUID()
     userId: string;
 
+    /**
+     * Debe ser un array (con almenos 1 elemento) de objetos parciales
+     * de la entidad Products
+     */
     @IsArray()
     @ValidateNested({ each: true})
     @Type(() => PartialType(Products))

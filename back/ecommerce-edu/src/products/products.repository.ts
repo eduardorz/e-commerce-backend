@@ -1,5 +1,4 @@
-import { Injectable } from "@nestjs/common";
-import { Product } from "./product.interface";
+import { BadRequestException, Injectable, NotFoundException } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Products } from "src/entities/products.entity";
 import { Categories } from "src/entities/categories.entity";
@@ -24,22 +23,21 @@ export class ProductsRepository {
         const start = (page - 1) * limit;
         const end = start + limit;
         products = products.slice(start, end);
-
         return products;
     }
 
     async getProductByIdRepository(id: string) {
         const product = await this.productsRepository.findOneBy({ id });
-        if(!product) return  `No se encontro el producto con el id ${id}`;
+        if(!product) throw new NotFoundException(`No se encontro el producto con el id ${id}`);
         return product;
     }
 
-    // QUEDA VALIDAR QUE YA EXISTAN LAS CATEGORIAS ANTES DE AGREGAR PRODUCTOS
-
     async addProductRepository() {
         const categories = await this.categoriesRepository.find();
+        const categoriesCount = await this.categoriesRepository.count();
+        if (categoriesCount === 0) throw new BadRequestException('No se encontraron categorias. Por favor, cargar categorias primero.');
+        
         data?.map(async (element) => {
-
             const category = categories.find(
                 (category) => category.name === element.category,
             );
@@ -57,7 +55,6 @@ export class ProductsRepository {
                 .insert()
                 .into(Products)
                 .values(product)
-                // si el producto ya existe, se actualiza
                 .orUpdate(['description', 'price', 'imgUrl', 'stock'], ['name'])
                 .execute();
         });
@@ -65,6 +62,8 @@ export class ProductsRepository {
     }
 
     async updateProductRepository(id: string, product: Products) {
+        const productFinded = await this.productsRepository.findOneBy({ id });
+        if(!productFinded) throw new NotFoundException(`No se encontró el producto con el id ${id}`);
         await this.productsRepository.update(id, product);
         const updatedProduct = await this.productsRepository.findOneBy({
             id,
@@ -72,14 +71,10 @@ export class ProductsRepository {
         return updatedProduct;
     }
 
-    /*
-    async deleteProductRepository(id: number) {
-        const foundIndex = this.products.findIndex(product => Number(product.id) === Number(id));
-        if(foundIndex === -1) return  `No se encontro el producto con el id ${id}`;
-        this.products.splice(foundIndex, 1);
-        return `El producto con el id ${id} ha sido eliminado`;
+    async deleteProductRepository(id: string) {
+        const product = await this.productsRepository.findOneBy({ id });
+        if(!product) throw new NotFoundException(`No se encontró el producto con el id ${id}`);
+        await this.productsRepository.delete(id);
+        return { message: `Producto con el id ${id} eliminado exitosamente` };
     }
-
-    */
-    
 }
